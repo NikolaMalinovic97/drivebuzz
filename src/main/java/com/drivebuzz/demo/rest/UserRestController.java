@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,17 +36,17 @@ public class UserRestController {
 	@GetMapping("/users/{userId}")
 	public User getUser(@PathVariable int userId) {
 		
-		User theTask = userService.findById(userId);
+		User theUser = userService.findById(userId);
 		
-		if (theTask == null) {
+		if (theUser == null) {
 			throw new RuntimeException("Task id not found - " + userId);
 		}
 		
-		return theTask;
+		return theUser;
 	}
 	
 	@PostMapping("/users")
-	public User addTask(@RequestBody User theUser) {
+	public User addUser(@RequestBody User theUser) {
 		
 		theUser.setId(0);
 		
@@ -52,4 +54,30 @@ public class UserRestController {
 		
 		return theUser;
 	}
+	
+	@PutMapping("/users")
+	public User updateUser(@RequestBody User theUser) {
+		
+		int userId = theUser.getId();
+		theUser.getUserInfo().setId(userId);
+		
+		userService.save(theUser);
+		
+		return theUser;
+	}
+	
+	@DeleteMapping("/users/{userId}")
+	public String deleteUser(@PathVariable int userId) {
+		
+		User theUser = userService.findById(userId);
+		
+		if (theUser == null) {
+			throw new RuntimeException("User id not found - " + userId);
+		}
+		
+		userService.deleteById(userId);
+		
+		return "Delete user with id: " + userId;
+	}
+	
 }
