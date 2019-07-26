@@ -36,11 +36,10 @@ public class User {
 		
 	}
 
-	public User(String username, String password, String role, UserInfo userInfo) {
+	public User(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
 		this.role = role;
-		this.userInfo = userInfo;
 	}
 
 	public int getId() {
