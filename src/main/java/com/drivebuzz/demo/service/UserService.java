@@ -1,10 +1,10 @@
-package com.drivebuzz.demo.dao;
+package com.drivebuzz.demo.service;
 
 import java.util.List;
 
 import com.drivebuzz.demo.entity.User;
 
-public interface UserDAO {
+public interface UserService {
 
 	public List<User> findAll();
 	
