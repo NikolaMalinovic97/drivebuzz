@@ -1,5 +1,8 @@
 package com.drivebuzz.demo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,6 +35,11 @@ public class User {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_info_id")
 	private UserInfo userInfo;
+	
+	@OneToMany(mappedBy="user",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					     CascadeType.DETACH, CascadeType.REFRESH})	
+	private List<Offer> offers;
 	
 	public User() {
 		
@@ -80,6 +89,25 @@ public class User {
 
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
+	}
+
+	public List<Offer> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(List<Offer> offers) {
+		this.offers = offers;
+	}
+	
+	public void add(Offer tempOffer) {
+		
+		if (offers == null) {
+			offers = new ArrayList<>();
+		}
+		
+		offers.add(tempOffer);
+		
+		tempOffer.setUser(this);
 	}
 
 	@Override
