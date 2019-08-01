@@ -57,9 +57,12 @@ public class UserDAOImpl implements UserDAO {
 
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		Query theQuery = 
-				currentSession.createQuery("delete from User where id=:userId");
-		theQuery.setParameter("userId", theId);
+		User theUser = this.findById(theId);
+		int theUserInfoId = theUser.getUserInfo().getId();
+		
+		Query<?> theQuery = 
+				currentSession.createQuery("delete from UserInfo where id=:userInfoId");
+		theQuery.setParameter("userInfoId", theUserInfoId);
 		
 		theQuery.executeUpdate();
 	}
