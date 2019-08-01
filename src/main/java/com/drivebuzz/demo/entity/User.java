@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="user")
 public class User {
@@ -38,7 +40,8 @@ public class User {
 	
 	@OneToMany(mappedBy="user",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					     CascadeType.DETACH, CascadeType.REFRESH})	
+					     CascadeType.DETACH, CascadeType.REFRESH})
+	@JsonManagedReference
 	private List<Offer> offers;
 	
 	public User() {
@@ -99,7 +102,7 @@ public class User {
 		this.offers = offers;
 	}
 	
-	public void add(Offer tempOffer) {
+	public void addOffer(Offer tempOffer) {
 		
 		if (offers == null) {
 			offers = new ArrayList<>();
