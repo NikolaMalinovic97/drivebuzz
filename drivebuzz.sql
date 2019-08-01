@@ -141,7 +141,7 @@ CREATE TABLE `offer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `departure_place` varchar(45) NOT NULL,
-  `destination` varchar(45) NOT NULL,
+  `destination_place` varchar(45) NOT NULL,
   `seats_number` int(11) NOT NULL,
   `departure_time` time NOT NULL,
   `departure_date` date NOT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE `offer` (
 
 LOCK TABLES `offer` WRITE;
 /*!40000 ALTER TABLE `offer` DISABLE KEYS */;
-INSERT INTO `offer` VALUES (1,NULL,'dsadas','dsadasda',3,'13:30:20','2019-10-10','13:23:52','2019-10-10',1);
+INSERT INTO `offer` VALUES (1,NULL,'dsadas','dsadasda',3,'13:30:00','2019-10-10','13:23:52','2019-10-10',1);
 /*!40000 ALTER TABLE `offer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,12 +176,12 @@ CREATE TABLE `user` (
   `username` varchar(15) NOT NULL,
   `password` varchar(16) NOT NULL,
   `role` varchar(8) NOT NULL,
-  `user_info_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `user_info_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`user_info_id`),
   UNIQUE KEY `username` (`username`),
   KEY `user_info_id_idx` (`user_info_id`),
-  CONSTRAINT `user_info_id` FOREIGN KEY (`user_info_id`) REFERENCES `user_info` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `user_info_id` FOREIGN KEY (`user_info_id`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'marko123','testpass','customer',1),(2,'nikola123','password12','customer',2),(8,'stefan123','testpass12','customer',3);
+INSERT INTO `user` VALUES (1,'stefan123','testpass12','customer',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +208,7 @@ CREATE TABLE `user_info` (
   `email` varchar(45) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +217,7 @@ CREATE TABLE `user_info` (
 
 LOCK TABLES `user_info` WRITE;
 /*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
-INSERT INTO `user_info` VALUES (1,'marko','markovic','asda@asdas','0564543'),(2,'niikola','nikolic','sdada@gasda','0645343'),(3,'stefan','stefanovic','stefo@stefic','06534363');
+INSERT INTO `user_info` VALUES (1,'stefan','stevanovic','stefo@stefic','06534363');
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -230,4 +230,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-26 14:43:16
+-- Dump completed on 2019-08-01 12:53:03
