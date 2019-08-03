@@ -77,7 +77,7 @@ public class UserRestController {
 		
 		userService.deleteById(userId);
 		
-		return "Delete user with id: " + userId;
+		return "Deleted user with id: " + userId;
 	}
 	
 }

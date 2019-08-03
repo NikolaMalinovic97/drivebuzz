@@ -2,6 +2,7 @@ package com.drivebuzz.demo.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,4 +40,19 @@ public class OfferRestController {
 		
 		return theOffer;
 	}
+	
+	@DeleteMapping("/offers/{offerId}")
+	public String deleteOffer(@PathVariable int offerId) {
+		
+		Offer theOffer = offerService.findById(offerId);
+		
+		if (theOffer == null) {
+			throw new RuntimeException("User id not found - " + offerId);
+		}
+		
+		offerService.deleteById(offerId);
+		
+		return "Deleted offer with id: " + offerId;
+	}
+	
 }

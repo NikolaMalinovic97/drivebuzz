@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -40,8 +41,12 @@ public class OfferDAOImpl implements OfferDAO {
 
 	@Override
 	public Offer findById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Offer theOffer = currentSession.get(Offer.class, theId);
+		
+		return theOffer;
 	}
 
 	@Override
@@ -60,8 +65,14 @@ public class OfferDAOImpl implements OfferDAO {
 
 	@Override
 	public void deleteById(int theId) {
-		// TODO Auto-generated method stub
 		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<?> theQuery =
+				currentSession.createQuery("delete from Offer where id=:offerId");
+		theQuery.setParameter("offerId", theId);
+		
+		theQuery.executeUpdate();
 	}
 
 }
