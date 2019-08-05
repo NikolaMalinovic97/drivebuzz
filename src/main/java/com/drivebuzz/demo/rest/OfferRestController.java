@@ -36,6 +36,18 @@ public class OfferRestController {
 		
 		return offerService.findAll();
 	}
+	
+	@GetMapping("/offers/active")
+	public List<Offer> findAllActive() {
+		
+		return offerService.findAllActive();
+	}
+	
+	@GetMapping("/offers/inactive")
+	public List<Offer> findAllInactive() {
+		
+		return offerService.findAllInactive();
+	}
 
 	@GetMapping("/offers/{offerId}")
 	public Offer getOffer(@PathVariable int offerId) {
