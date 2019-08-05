@@ -3,6 +3,10 @@ package com.drivebuzz.demo.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.GetMapping;
+>>>>>>> Implemented finding offer by id in 'OfferRestController'.
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +32,21 @@ public class OfferRestController {
 		this.userService = userService;
 	}
 	
+<<<<<<< HEAD
+=======
+	@GetMapping("/offers/{offerId}")
+	public Offer getOffer(@PathVariable int offerId) {
+		
+		Offer theOffer = offerService.findById(offerId);
+		
+		if (theOffer == null) {
+			throw new RuntimeException("Offer id not found - " + offerId);
+		}
+		
+		return theOffer;
+	}
+	
+>>>>>>> Implemented finding offer by id in 'OfferRestController'.
 	@PostMapping("/offers/{userId}")
 	public Offer addOffer(@PathVariable int userId, @RequestBody Offer theOffer) {
 				
