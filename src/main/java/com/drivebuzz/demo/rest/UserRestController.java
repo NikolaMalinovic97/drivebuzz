@@ -30,6 +30,7 @@ public class UserRestController {
 	
 	@GetMapping("/users")
 	public List<User> findAll() {
+		
 		return userService.findAll();
 	}
 	

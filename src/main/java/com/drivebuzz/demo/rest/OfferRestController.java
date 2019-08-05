@@ -1,5 +1,7 @@
 package com.drivebuzz.demo.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +29,12 @@ public class OfferRestController {
 	public OfferRestController(OfferService offerService, UserService userService) {
 		this.offerService = offerService;
 		this.userService = userService;
+	}
+	
+	@GetMapping("/offers")
+	public List<Offer> findAll() {
+		
+		return offerService.findAll();
 	}
 
 	@GetMapping("/offers/{offerId}")

@@ -23,8 +23,15 @@ public class OfferDAOImpl implements OfferDAO {
 
 	@Override
 	public List<Offer> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<Offer> theQuery =
+				currentSession.createQuery("from Offer", Offer.class);
+		
+		List<Offer> offers = theQuery.getResultList();
+		
+		return offers;
 	}
 
 	@Override

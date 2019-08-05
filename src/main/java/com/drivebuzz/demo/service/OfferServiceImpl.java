@@ -11,7 +11,6 @@ import com.drivebuzz.demo.entity.Offer;
 @Service
 public class OfferServiceImpl implements OfferService {
 
-	@SuppressWarnings("unused")
 	private OfferDAO offerDAO;
 	
 	public OfferServiceImpl(OfferDAO offerDAO) {
