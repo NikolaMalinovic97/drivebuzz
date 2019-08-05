@@ -61,6 +61,18 @@ public class OfferRestController {
 		return theOffer;
 	}
 	
+	@GetMapping("/offers/user/{userId}")
+	public List<Offer> getOffersForSpecificUser(@PathVariable int userId) {
+		
+		List<Offer> offers = offerService.findOffersForSpecificUser(userId);
+		
+		if (offers.isEmpty()) {
+			throw new RuntimeException("Specified user does not have any offers or does not exist.");
+		}
+		
+		return offers;
+	}
+	
 	@PostMapping("/offers/{userId}")
 	public Offer addOffer(@PathVariable int userId, @RequestBody Offer theOffer) {
 				

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.drivebuzz.demo.entity.Offer;
+import com.drivebuzz.demo.service.UserService;
 
 @Repository
 public class OfferDAOImpl implements OfferDAO {
@@ -72,8 +73,16 @@ public class OfferDAOImpl implements OfferDAO {
 
 	@Override
 	public List<Offer> findOffersForSpecificUser(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query theQuery =
+				currentSession.createQuery("from Offer where user_id = :userId");
+		theQuery.setParameter("userId", theId);
+		
+		List<Offer> offers = theQuery.getResultList();
+				
+		return offers;
 	}
 
 	@Override
