@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.drivebuzz.demo.entity.Demand;
+import com.drivebuzz.demo.entity.Offer;
 
 @Repository
 public class DemandDAOImpl implements DemandDAO {
@@ -72,8 +73,17 @@ public class DemandDAOImpl implements DemandDAO {
 
 	@Override
 	public List<Demand> findDemandsForSpecificUser(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		@SuppressWarnings("unchecked")
+		Query<Demand> theQuery =
+				currentSession.createQuery("from Demand where user_id = :userId");
+		theQuery.setParameter("userId", theId);
+		
+		List<Demand> demands = theQuery.getResultList();
+				
+		return demands;
 	}
 
 	@Override
