@@ -62,8 +62,12 @@ public class DemandDAOImpl implements DemandDAO {
 
 	@Override
 	public Demand findById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Demand theDemand = currentSession.get(Demand.class, theId);
+		
+		return theDemand;
 	}
 
 	@Override
