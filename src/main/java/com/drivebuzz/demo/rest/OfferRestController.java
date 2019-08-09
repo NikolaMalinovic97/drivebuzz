@@ -22,8 +22,8 @@ import com.drivebuzz.demo.service.UserService;
 @RequestMapping("/offer-api")
 public class OfferRestController {
 
-	OfferService offerService;
-	UserService userService;
+	private OfferService offerService;
+	private UserService userService;
 
 	@Autowired
 	public OfferRestController(OfferService offerService, UserService userService) {
