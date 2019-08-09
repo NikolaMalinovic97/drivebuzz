@@ -92,7 +92,7 @@ public class OfferRestController {
 		Offer theOffer = offerService.findById(offerId);
 		
 		if (theOffer == null) {
-			throw new RuntimeException("User id not found - " + offerId);
+			throw new RuntimeException("Offer id not found - " + offerId);
 		}
 		
 		offerService.deleteById(offerId);

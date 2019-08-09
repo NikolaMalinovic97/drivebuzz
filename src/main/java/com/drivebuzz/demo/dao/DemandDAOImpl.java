@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.drivebuzz.demo.entity.Demand;
-import com.drivebuzz.demo.entity.Offer;
 
 @Repository
 public class DemandDAOImpl implements DemandDAO {
@@ -88,14 +87,22 @@ public class DemandDAOImpl implements DemandDAO {
 
 	@Override
 	public void save(Demand theDemand) {
-		// TODO Auto-generated method stub
 		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		currentSession.saveOrUpdate(theDemand);
 	}
 
 	@Override
 	public void deleteById(int theId) {
-		// TODO Auto-generated method stub
 		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<?> theQuery =
+				currentSession.createQuery("delete from Demand where id=:demandId");
+		theQuery.setParameter("demandId", theId);
+		
+		theQuery.executeUpdate();
 	}
 
 }

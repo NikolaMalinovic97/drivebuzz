@@ -4,13 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.drivebuzz.demo.entity.Demand;
-import com.drivebuzz.demo.entity.Offer;
+import com.drivebuzz.demo.entity.User;
 import com.drivebuzz.demo.service.DemandService;
 import com.drivebuzz.demo.service.UserService;
 
@@ -68,6 +71,33 @@ public class DemandRestController {
 		}
 		
 		return demands;
+	}
+	
+	@PostMapping("/demands/{userId}")
+	public Demand addDemand(@PathVariable int userId, @RequestBody Demand theDemand) {
+				
+		User theUser = userService.findById(userId);
+		theUser.addDemand(theDemand);
+		
+		theDemand.setId(0);
+		
+		demandService.save(theDemand);
+		
+		return theDemand;
+	}
+	
+	@DeleteMapping("/demands/{demandId}")
+	public String deleteDemand(@PathVariable int demandId) {
+		
+		Demand theDemand = demandService.findById(demandId);
+		
+		if (theDemand == null) {
+			throw new RuntimeException("Demand id not found - " + demandId);
+		}
+		
+		demandService.deleteById(demandId);
+		
+		return "Deleted offer with id: " + demandId;
 	}
 	
 }
