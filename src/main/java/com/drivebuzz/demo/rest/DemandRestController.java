@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.drivebuzz.demo.entity.Demand;
+import com.drivebuzz.demo.entity.Offer;
 import com.drivebuzz.demo.service.DemandService;
 import com.drivebuzz.demo.service.UserService;
 
@@ -30,5 +31,17 @@ public class DemandRestController {
 	public List<Demand> findAll() {
 		
 		return demandService.findAll();
+	}
+	
+	@GetMapping("/demands/active")
+	public List<Demand> findAllActive() {
+		
+		return demandService.findAllActive();
+	}
+	
+	@GetMapping("/demands/inactive")
+	public List<Demand> findAllInactive() {
+		
+		return demandService.findAllInactive();
 	}
 }

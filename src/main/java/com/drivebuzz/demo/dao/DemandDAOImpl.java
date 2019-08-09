@@ -36,14 +36,28 @@ public class DemandDAOImpl implements DemandDAO {
 
 	@Override
 	public List<Demand> findAllActive() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<Demand> theQuery =
+				currentSession.createQuery("from Demand where active = 1", Demand.class);
+		
+		List<Demand> activeDemands = theQuery.getResultList();
+		
+		return activeDemands;
 	}
 
 	@Override
 	public List<Demand> findAllInactive() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<Demand> theQuery =
+				currentSession.createQuery("from Demand where active = 0", Demand.class);
+		
+		List<Demand> inactiveDemands = theQuery.getResultList();
+		
+		return inactiveDemands;
 	}
 
 	@Override
