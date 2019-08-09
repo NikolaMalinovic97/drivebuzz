@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,8 +23,15 @@ public class DemandDAOImpl implements DemandDAO {
 
 	@Override
 	public List<Demand> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<Demand> theQuery =
+				currentSession.createQuery("from Demand", Demand.class);
+		
+		List<Demand> demands = theQuery.getResultList();
+		
+		return demands;
 	}
 
 	@Override
