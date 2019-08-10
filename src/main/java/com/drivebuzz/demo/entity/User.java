@@ -50,6 +50,12 @@ public class User {
 	@JsonManagedReference
 	private List<Demand> demands;
 	
+	@OneToMany(mappedBy="user",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					     CascadeType.DETACH, CascadeType.REFRESH})
+	@JsonManagedReference
+	private List<Notification> notifications;
+		
 	public User() {
 		
 	}
@@ -116,6 +122,14 @@ public class User {
 		this.demands = demands;
 	}
 
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
 	public void addOffer(Offer tempOffer) {
 		
 		if (offers == null) {
@@ -136,6 +150,17 @@ public class User {
 		demands.add(tempDemand);
 		
 		tempDemand.setUser(this);
+	}
+	
+	public void addNotification(Notification tempNotification) {
+		
+		if (notifications == null) {
+			notifications = new ArrayList<>();
+		}
+		
+		notifications.add(tempNotification);
+		
+		tempNotification.setUser(this);
 	}
 
 	@Override
