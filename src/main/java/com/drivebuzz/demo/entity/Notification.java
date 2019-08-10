@@ -12,8 +12,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Table(name="notification")
 @Entity
+@Table(name="notification")
 public class Notification {
 
 	@Id
