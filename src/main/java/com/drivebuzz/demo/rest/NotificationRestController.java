@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,6 +52,19 @@ public class NotificationRestController {
 		}
 		
 		return theUser.getNotifications();
+	}
+	
+	@PostMapping("/notifications/{userId}")
+	public Notification addNotification(@PathVariable int userId, @RequestBody Notification theNotification) {
+		
+		User theUser = userService.findById(userId);
+		theUser.addNotification(theNotification);
+		
+		theNotification.setId(0);
+		
+		notificationService.save(theNotification);
+		
+		return theNotification;
 	}
 	
 }

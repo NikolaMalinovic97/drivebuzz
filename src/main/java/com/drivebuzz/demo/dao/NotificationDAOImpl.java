@@ -30,8 +30,10 @@ public class NotificationDAOImpl implements NotificationDAO {
 
 	@Override
 	public void save(Notification theNotification) {
-		// TODO Auto-generated method stub
 		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		currentSession.saveOrUpdate(theNotification);
 	}
 
 	@Override
