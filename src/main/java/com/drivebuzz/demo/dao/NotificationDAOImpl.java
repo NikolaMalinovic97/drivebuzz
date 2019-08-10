@@ -3,6 +3,7 @@ package com.drivebuzz.demo.dao;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -38,8 +39,14 @@ public class NotificationDAOImpl implements NotificationDAO {
 
 	@Override
 	public void deleteById(int theId) {
-		// TODO Auto-generated method stub
 		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<?> theQuery =
+				currentSession.createQuery("delete from Notification where id=:notificationId");
+		theQuery.setParameter("notificationId", theId);
+		
+		theQuery.executeUpdate();
 	}
 
 }
