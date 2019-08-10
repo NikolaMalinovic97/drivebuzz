@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,8 +22,12 @@ public class NotificationDAOImpl implements NotificationDAO {
 
 	@Override
 	public Notification findById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Notification theNotification = currentSession.get(Notification.class, theId);
+		
+		return theNotification;
 	}
 
 	@Override
