@@ -1,7 +1,5 @@
 package com.drivebuzz.demo.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +19,6 @@ public class NotificationServiceImpl implements NotificationService {
 	@Transactional
 	public Notification findById(int theId) {
 		return notificationDAO.findById(theId);
-	}
-
-	@Override
-	@Transactional
-	public List<Notification> findNotificationsForSpecificUser(int theId) {
-		return notificationDAO.findNotificationsForSpecificUser(theId);
 	}
 
 	@Override

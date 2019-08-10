@@ -1,7 +1,5 @@
 package com.drivebuzz.demo.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
@@ -28,12 +26,6 @@ public class NotificationDAOImpl implements NotificationDAO {
 		Notification theNotification = currentSession.get(Notification.class, theId);
 		
 		return theNotification;
-	}
-
-	@Override
-	public List<Notification> findNotificationsForSpecificUser(int theId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

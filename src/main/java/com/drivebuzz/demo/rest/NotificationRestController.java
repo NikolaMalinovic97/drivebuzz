@@ -1,5 +1,7 @@
 package com.drivebuzz.demo.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.drivebuzz.demo.entity.Notification;
+import com.drivebuzz.demo.entity.User;
 import com.drivebuzz.demo.service.NotificationService;
 import com.drivebuzz.demo.service.UserService;
 
@@ -35,6 +38,18 @@ public class NotificationRestController {
 		}
 		
 		return theNotification;				
+	}
+	
+	@GetMapping("/notifications/user/{userId}")
+	public List<Notification> getNotificationsForSpecificUser(@PathVariable int userId) {
+		
+		User theUser = userService.findById(userId);
+		
+		if (theUser == null) {
+			throw new RuntimeException("User id not found - " + userId);
+		}
+		
+		return theUser.getNotifications();
 	}
 	
 }
