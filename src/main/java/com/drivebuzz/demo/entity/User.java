@@ -6,10 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -55,6 +58,17 @@ public class User {
 					     CascadeType.DETACH, CascadeType.REFRESH})
 	@JsonManagedReference
 	private List<Notification> notifications;
+	
+	@ManyToMany(fetch=FetchType.LAZY,
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					     CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinTable(
+			name="conversation_user",
+			joinColumns=@JoinColumn(name="user_id"),
+			inverseJoinColumns=@JoinColumn(name="conversation_id")
+			)
+	@JsonManagedReference
+	private List<Conversation> conversations;
 		
 	public User() {
 		
@@ -128,6 +142,14 @@ public class User {
 
 	public void setNotifications(List<Notification> notifications) {
 		this.notifications = notifications;
+	}
+
+	public List<Conversation> getConversations() {
+		return conversations;
+	}
+
+	public void setConversations(List<Conversation> conversations) {
+		this.conversations = conversations;
 	}
 
 	public void addOffer(Offer tempOffer) {
