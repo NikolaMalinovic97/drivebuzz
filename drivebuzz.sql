@@ -25,14 +25,10 @@ DROP TABLE IF EXISTS `conversation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `conversation` (
-  `id` int(11) NOT NULL,
-  `user1_id` int(11) DEFAULT NULL,
-  `user2_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user1_id_idx` (`user1_id`),
-  KEY `user2_id_idx` (`user2_id`),
-  CONSTRAINT `user1_id` FOREIGN KEY (`user1_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `user2_id` FOREIGN KEY (`user2_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `last_activity_date` date DEFAULT NULL,
+  `last_activity_time` time DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,6 +39,32 @@ CREATE TABLE `conversation` (
 LOCK TABLES `conversation` WRITE;
 /*!40000 ALTER TABLE `conversation` DISABLE KEYS */;
 /*!40000 ALTER TABLE `conversation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `conversation_user`
+--
+
+DROP TABLE IF EXISTS `conversation_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `conversation_user` (
+  `conversation_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`conversation_id`,`user_id`),
+  KEY `fk_user_id_idx` (`user_id`),
+  CONSTRAINT `fk_conversation_id` FOREIGN KEY (`conversation_id`) REFERENCES `conversation` (`id`),
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `conversation_user`
+--
+
+LOCK TABLES `conversation_user` WRITE;
+/*!40000 ALTER TABLE `conversation_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `conversation_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -84,14 +106,17 @@ DROP TABLE IF EXISTS `message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `message` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `conversation_id` int(11) NOT NULL,
   `text` varchar(256) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `conversation_id_idx` (`conversation_id`),
-  CONSTRAINT `conversation_id` FOREIGN KEY (`conversation_id`) REFERENCES `conversation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_conversation_id_idx` (`conversation_id`),
+  KEY `fk_message_user_idx` (`user_id`),
+  CONSTRAINT `fk_message_conversation` FOREIGN KEY (`conversation_id`) REFERENCES `conversation` (`id`),
+  CONSTRAINT `fk_message_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -119,7 +144,7 @@ CREATE TABLE `notification` (
   PRIMARY KEY (`id`),
   KEY `user_id_notification_idx` (`user_id`),
   CONSTRAINT `user_id_notification` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,4 +257,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-10 12:40:53
+-- Dump completed on 2019-08-13 15:20:58
