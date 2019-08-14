@@ -1,5 +1,7 @@
 package com.drivebuzz.demo.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,6 +40,18 @@ public class ConversationRestController {
 		}
 		
 		return theConversation;
+	}
+	
+	@GetMapping("/conversations/user/{userId}")
+	public List<Conversation> getConversationsForSpecificUser(@PathVariable int userId) {
+		
+		User theUser = userService.findById(userId);
+		
+		if (theUser == null) {
+			throw new RuntimeException("Specified user does not have any conversations or does not exist.");
+		}
+		
+		return theUser.getConversations();
 	}
 	
 	@PostMapping("/conversations/{userOneId}/{userTwoId}")
