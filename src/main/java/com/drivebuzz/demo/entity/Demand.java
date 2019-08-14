@@ -46,9 +46,8 @@ public class Demand {
 		
 	}
 
-	public Demand(int id, String departurePlace, String destinationPlace, String timeCreated, String dateCreated,
-			boolean active) {
-		this.id = id;
+	public Demand(String departurePlace, String destinationPlace, String timeCreated, String dateCreated,
+				  boolean active) {
 		this.departurePlace = departurePlace;
 		this.destinationPlace = destinationPlace;
 		this.timeCreated = timeCreated;

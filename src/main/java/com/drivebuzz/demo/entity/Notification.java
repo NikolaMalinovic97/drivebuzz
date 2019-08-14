@@ -37,8 +37,7 @@ public class Notification {
 		
 	}
 
-	public Notification(int id, boolean checked, String text) {
-		this.id = id;
+	public Notification(boolean checked, String text) {
 		this.checked = checked;
 		this.text = text;
 	}

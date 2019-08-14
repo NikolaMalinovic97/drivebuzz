@@ -47,8 +47,7 @@ public class Conversation {
 		
 	}
 
-	public Conversation(int id, String lastActivityDate, String lastActivityTime) {
-		this.id = id;
+	public Conversation(String lastActivityDate, String lastActivityTime) {
 		this.lastActivityDate = lastActivityDate;
 		this.lastActivityTime = lastActivityTime;
 	}

@@ -2,6 +2,7 @@ package com.drivebuzz.demo.dao;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,8 +26,10 @@ public class ConversationDAOImpl implements ConversationDAO {
 
 	@Override
 	public void save(Conversation theConversation) {
-		// TODO Auto-generated method stub
 		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		currentSession.saveOrUpdate(theConversation);
 	}
 
 	@Override
