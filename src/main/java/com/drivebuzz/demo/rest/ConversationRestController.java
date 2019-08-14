@@ -2,6 +2,8 @@ package com.drivebuzz.demo.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,18 @@ public class ConversationRestController {
 		this.userService = userService;
 	}
 	
+	@GetMapping("/conversations/{conversationsId}")
+	public Conversation getConversation(@PathVariable int conversationsId) {
+		
+		Conversation theConversation = conversationService.findById(conversationsId);
+		
+		if (theConversation == null) {
+			throw new RuntimeException("Conversation id not found - " + conversationsId);
+		}
+		
+		return theConversation;
+	}
+	
 	@PostMapping("/conversations/{userOneId}/{userTwoId}")
 	public Conversation addConversation(@PathVariable int userOneId, @PathVariable int userTwoId) {
 		
@@ -42,6 +56,20 @@ public class ConversationRestController {
 		conversationService.save(theConversation);
 		
 		return theConversation;
+	}
+	
+	@DeleteMapping("/conversations/{conversationId}")
+	public String deleteConversation(@PathVariable int conversationId) {
+		
+		Conversation theConversation = conversationService.findById(conversationId);
+		
+		if (theConversation == null) {
+			throw new RuntimeException("Conversation id not found - " + conversationId);
+		}
+		
+		conversationService.deleteById(conversationId);
+		
+		return "Deleted Conversation with id: " + conversationId;
 	}
 	
 }

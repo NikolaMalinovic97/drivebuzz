@@ -40,7 +40,7 @@ public class UserRestController {
 		User theUser = userService.findById(userId);
 		
 		if (theUser == null) {
-			throw new RuntimeException("Task id not found - " + userId);
+			throw new RuntimeException("User id not found - " + userId);
 		}
 		
 		return theUser;

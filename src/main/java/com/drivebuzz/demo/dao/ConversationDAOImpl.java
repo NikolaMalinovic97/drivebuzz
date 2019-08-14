@@ -3,6 +3,7 @@ package com.drivebuzz.demo.dao;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,8 +21,12 @@ public class ConversationDAOImpl implements ConversationDAO {
 	
 	@Override
 	public Conversation findById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Conversation theConversation = currentSession.get(Conversation.class, theId);
+		
+		return theConversation;
 	}
 
 	@Override
@@ -34,8 +39,14 @@ public class ConversationDAOImpl implements ConversationDAO {
 
 	@Override
 	public void deleteById(int theId) {
-		// TODO Auto-generated method stub
 		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<?> theQuery =
+				currentSession.createQuery("delete from Conversation where id=:conversationId");
+		theQuery.setParameter("conversationId", theId);
+		
+		theQuery.executeUpdate();
 	}
 
 }
