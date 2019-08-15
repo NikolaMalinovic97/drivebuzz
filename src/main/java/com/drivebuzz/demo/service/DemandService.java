@@ -14,8 +14,6 @@ public interface DemandService {
 	
 	public Demand findById(int theId);
 	
-	public List<Demand> findDemandsForSpecificUser(int theId);
-	
 	public void save(Demand theDemand);
 	
 	public void deleteById(int theId);

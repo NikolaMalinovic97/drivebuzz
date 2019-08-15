@@ -43,12 +43,6 @@ public class DemandServiceImpl implements DemandService {
 
 	@Override
 	@Transactional
-	public List<Demand> findDemandsForSpecificUser(int theId) {
-		return demandDAO.findDemandsForSpecificUser(theId);
-	}
-
-	@Override
-	@Transactional
 	public void save(Demand theDemand) {
 		demandDAO.save(theDemand);
 	}

@@ -64,13 +64,13 @@ public class DemandRestController {
 	@GetMapping("/demands/user/{userId}")
 	public List<Demand> getDemandsForSpecificUser(@PathVariable int userId) {
 		
-		List<Demand> demands = demandService.findDemandsForSpecificUser(userId);
+		User theUser = userService.findById(userId);
 		
-		if (demands.isEmpty()) {
-			throw new RuntimeException("Specified user does not have any demands or does not exist.");
+		if (theUser == null) {
+			throw new RuntimeException("User with id: "+ userId +" does not exist.");
 		}
 		
-		return demands;
+		return theUser.getDemands();
 	}
 	
 	@PostMapping("/demands/{userId}")

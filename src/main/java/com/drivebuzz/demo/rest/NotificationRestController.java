@@ -49,7 +49,7 @@ public class NotificationRestController {
 		User theUser = userService.findById(userId);
 		
 		if (theUser == null) {
-			throw new RuntimeException("User id not found - " + userId);
+			throw new RuntimeException("User with id: "+ userId +" does not exist.");
 		}
 		
 		return theUser.getNotifications();

@@ -69,9 +69,6 @@ public class OfferRestController {
 		if (theUser == null) {
 			throw new RuntimeException("User with id: "+ userId +" does not exist.");
 		}
-		else if (theUser.getOffers().isEmpty()) {
-			throw new RuntimeException("Specified user does not have any offers.");
-		}
 		
 		return theUser.getOffers();
 	}

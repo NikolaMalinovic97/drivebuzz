@@ -71,21 +71,6 @@ public class DemandDAOImpl implements DemandDAO {
 	}
 
 	@Override
-	public List<Demand> findDemandsForSpecificUser(int theId) {
-		
-		Session currentSession = entityManager.unwrap(Session.class);
-		
-		@SuppressWarnings("unchecked")
-		Query<Demand> theQuery =
-				currentSession.createQuery("from Demand where user_id = :userId");
-		theQuery.setParameter("userId", theId);
-		
-		List<Demand> demands = theQuery.getResultList();
-				
-		return demands;
-	}
-
-	@Override
 	public void save(Demand theDemand) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
