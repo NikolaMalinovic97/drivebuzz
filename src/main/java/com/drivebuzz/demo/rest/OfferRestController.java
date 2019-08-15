@@ -64,13 +64,16 @@ public class OfferRestController {
 	@GetMapping("/offers/user/{userId}")
 	public List<Offer> getOffersForSpecificUser(@PathVariable int userId) {
 		
-		List<Offer> offers = offerService.findOffersForSpecificUser(userId);
+		User theUser = userService.findById(userId);
 		
-		if (offers.isEmpty()) {
-			throw new RuntimeException("Specified user does not have any offers or does not exist.");
+		if (theUser == null) {
+			throw new RuntimeException("User with id: "+ userId +" does not exist.");
+		}
+		else if (theUser.getOffers().isEmpty()) {
+			throw new RuntimeException("Specified user does not have any offers.");
 		}
 		
-		return offers;
+		return theUser.getOffers();
 	}
 	
 	@PostMapping("/offers/{userId}")

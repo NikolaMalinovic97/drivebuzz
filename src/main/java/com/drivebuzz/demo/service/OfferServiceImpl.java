@@ -43,12 +43,6 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	@Transactional
-	public List<Offer> findOffersForSpecificUser(int theId) {
-		return offerDAO.findOffersForSpecificUser(theId);
-	}
-
-	@Override
-	@Transactional
 	public void save(Offer theOffer) {
 		offerDAO.save(theOffer);
 	}

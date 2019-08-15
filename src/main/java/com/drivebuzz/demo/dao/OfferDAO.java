@@ -14,8 +14,6 @@ public interface OfferDAO {
 	
 	public Offer findById(int theId);
 	
-	public List<Offer> findOffersForSpecificUser(int theId);
-	
 	public void save(Offer theOffer);
 	
 	public void deleteById(int theId);

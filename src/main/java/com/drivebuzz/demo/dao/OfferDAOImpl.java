@@ -71,21 +71,6 @@ public class OfferDAOImpl implements OfferDAO {
 	}
 
 	@Override
-	public List<Offer> findOffersForSpecificUser(int theId) {
-		
-		Session currentSession = entityManager.unwrap(Session.class);
-		
-		@SuppressWarnings("unchecked")
-		Query<Offer> theQuery =
-				currentSession.createQuery("from Offer where user_id = :userId");
-		theQuery.setParameter("userId", theId);
-		
-		List<Offer> offers = theQuery.getResultList();
-				
-		return offers;
-	}
-
-	@Override
 	public void save(Offer theOffer) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
