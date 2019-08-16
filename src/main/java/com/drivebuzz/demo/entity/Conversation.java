@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -42,6 +43,12 @@ public class Conversation {
 			)
 	@JsonManagedReference
 	private List<User> users;
+	
+	@OneToMany(mappedBy="conversation",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					     CascadeType.DETACH, CascadeType.REFRESH})
+	@JsonManagedReference
+	private List<Message> messages;
 	
 	public Conversation() {
 		
@@ -84,6 +91,14 @@ public class Conversation {
 		this.users = users;
 	}
 
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+
 	public void addUser(User theUser) {
 		
 		if (users == null) {
@@ -91,6 +106,15 @@ public class Conversation {
 		}
 		
 		users.add(theUser);
+	}
+	
+	public void addMessage(Message theMessage) {
+		
+		if (messages == null) {
+			messages = new ArrayList<>();
+		}
+		
+		messages.add(theMessage);
 	}
 	
 	@Override

@@ -48,7 +48,7 @@ public class ConversationRestController {
 		User theUser = userService.findById(userId);
 		
 		if (theUser == null) {
-			throw new RuntimeException("Specified user does not have any conversations or does not exist.");
+			throw new RuntimeException("User with id: "+ userId +" does not exist.");
 		}
 		
 		return theUser.getConversations();

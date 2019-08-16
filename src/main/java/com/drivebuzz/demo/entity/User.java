@@ -70,6 +70,12 @@ public class User {
 			)
 	@JsonBackReference
 	private List<Conversation> conversations;
+	
+	@OneToMany(mappedBy="user",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					     CascadeType.DETACH, CascadeType.REFRESH})
+	@JsonManagedReference
+	private List<Message> messages;
 		
 	public User() {
 		
@@ -152,6 +158,14 @@ public class User {
 	public void setConversations(List<Conversation> conversations) {
 		this.conversations = conversations;
 	}
+	
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
 
 	public void addOffer(Offer tempOffer) {
 		
@@ -184,6 +198,15 @@ public class User {
 		notifications.add(tempNotification);
 		
 		tempNotification.setUser(this);
+	}
+	
+	public void addMessage(Message theMessage) {
+		
+		if (messages == null) {
+			messages = new ArrayList<>();
+		}
+		
+		messages.add(theMessage);
 	}
 
 	@Override
