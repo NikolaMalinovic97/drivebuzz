@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.drivebuzz.demo.entity.User;
+import com.drivebuzz.demo.extractor.FieldExtractor;
 import com.drivebuzz.demo.service.UserService;
 
 @RestController
@@ -44,6 +45,20 @@ public class UserRestController {
 		}
 		
 		return theUser;
+	}
+	
+	@GetMapping("/users/validate")
+	public void validateUser(@RequestBody Object object) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		
+		FieldExtractor fieldExtractor = new FieldExtractor();
+		
+		String username = fieldExtractor.extractUsername(object);
+		String password = fieldExtractor.extractPassword(object);
+		
+		System.out.println(username);
+		System.out.println(password);
+		
+//		TO-DO: add code for validating username and password
 	}
 	
 	@PostMapping("/users")

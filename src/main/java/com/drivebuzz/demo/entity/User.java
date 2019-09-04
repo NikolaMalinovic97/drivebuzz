@@ -44,7 +44,7 @@ public class User {
 	
 	@OneToMany(mappedBy="user",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					     CascadeType.DETACH, CascadeType.REFRESH})
+					     /*CascadeType.DETACH,*/ CascadeType.REFRESH})
 	@JsonManagedReference
 	private List<Offer> offers;
 	
