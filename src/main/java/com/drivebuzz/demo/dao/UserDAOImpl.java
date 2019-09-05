@@ -3,6 +3,7 @@ package com.drivebuzz.demo.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -40,6 +41,29 @@ public class UserDAOImpl implements UserDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		User theUser = currentSession.get(User.class, theId);
+		
+		return theUser;
+	}
+	
+	@Override
+	public User validate(String username, String password) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		@SuppressWarnings("unchecked")
+		Query<User> theQuery =
+				currentSession.createQuery("from User where username=:username and password=:password");
+		theQuery.setParameter("username", username);
+		theQuery.setParameter("password", password);
+		
+		User theUser;
+		
+		try {
+			theUser = theQuery.getSingleResult();
+		} 
+		catch (NoResultException e) {
+			return null;
+		}
 		
 		return theUser;
 	}

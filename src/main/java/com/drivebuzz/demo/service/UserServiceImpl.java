@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User validate(String username, String password) {
+		return userDAO.validate(username, password);
+	}
+	
+	@Override
 	@Transactional
 	public void save(User theUser) {
 		userDAO.save(theUser);

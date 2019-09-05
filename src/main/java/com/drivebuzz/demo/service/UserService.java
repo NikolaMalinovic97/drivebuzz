@@ -10,6 +10,8 @@ public interface UserService {
 	
 	public User findById(int theId);
 	
+	public User validate(String username, String password);
+	
 	public void save(User theUser);
 	
 	public void deleteById(int theId);
