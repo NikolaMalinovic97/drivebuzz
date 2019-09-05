@@ -47,13 +47,15 @@ public class UserRestController {
 		return theUser;
 	}
 	
-	@GetMapping("/users/validate")
+	@PostMapping("/users/validate")
 	public User validateUser(@RequestBody Object object) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		
 		FieldExtractor fieldExtractor = new FieldExtractor();
 		
 		String username = fieldExtractor.extractUsername(object);
 		String password = fieldExtractor.extractPassword(object);
+		
+		System.out.println(">>>>> " + username + "  " + password);
 		
 		return userService.validate(username, password);
 	}
