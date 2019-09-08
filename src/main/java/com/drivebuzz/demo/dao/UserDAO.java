@@ -10,6 +10,8 @@ public interface UserDAO {
 	
 	public User findById(int theId);
 	
+	public User findByUsername(String theUsername);
+	
 	public User validate(String username, String password);
 	
 	public void save(User theUser);

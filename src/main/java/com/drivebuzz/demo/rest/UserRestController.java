@@ -47,6 +47,18 @@ public class UserRestController {
 		return theUser;
 	}
 	
+	@GetMapping("/users/exist/{username}")
+	public boolean doesUserExist(@PathVariable String username) {
+		
+		User theUser = userService.findByUsername(username);
+		
+		if (theUser == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	@PostMapping("/users/validate")
 	public User validateUser(@RequestBody Object object) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		
@@ -54,8 +66,6 @@ public class UserRestController {
 		
 		String username = fieldExtractor.extractUsername(object);
 		String password = fieldExtractor.extractPassword(object);
-		
-		System.out.println(">>>>> " + username + "  " + password);
 		
 		return userService.validate(username, password);
 	}

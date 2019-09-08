@@ -28,8 +28,15 @@ public class UserServiceImpl implements UserService {
 	public User findById(int theId) {
 		return userDAO.findById(theId);
 	}
+	
+	@Override
+	@Transactional
+	public User findByUsername(String theUsername) {
+		return userDAO.findByUsername(theUsername);
+	}
 
 	@Override
+	@Transactional
 	public User validate(String username, String password) {
 		return userDAO.validate(username, password);
 	}

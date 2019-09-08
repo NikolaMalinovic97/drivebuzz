@@ -46,6 +46,28 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public User findByUsername(String theUsername) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		@SuppressWarnings("unchecked")
+		Query<User> theQuery =
+				currentSession.createQuery("from User where username=:username");
+		theQuery.setParameter("username", theUsername);
+		
+		User theUser;
+		
+		try {
+			theUser = theQuery.getSingleResult();
+		} 
+		catch (NoResultException e) {
+			return null;
+		}
+		
+		return theUser;
+	}
+	
+	@Override
 	public User validate(String username, String password) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
