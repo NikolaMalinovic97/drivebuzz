@@ -18,9 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="user")
@@ -47,19 +45,19 @@ public class User {
 	@OneToMany(mappedBy="user",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					     CascadeType.DETACH, CascadeType.REFRESH})
-	@JsonManagedReference("offer-user")
+	@JsonBackReference("offer-user")
 	private List<Offer> offers;
 	
 	@OneToMany(mappedBy="user",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					     CascadeType.DETACH, CascadeType.REFRESH})
-	@JsonManagedReference
+	@JsonBackReference
 	private List<Demand> demands;
 	
 	@OneToMany(mappedBy="user",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					     CascadeType.DETACH, CascadeType.REFRESH})
-	@JsonManagedReference
+	@JsonBackReference
 	private List<Notification> notifications;
 	
 	@ManyToMany(fetch=FetchType.LAZY,
@@ -70,6 +68,7 @@ public class User {
 			joinColumns=@JoinColumn(name="user_id"),
 			inverseJoinColumns=@JoinColumn(name="conversation_id")
 			)
+	@JsonIgnore
 	private List<Conversation> conversations;
 	
 	/*@OneToMany(mappedBy="user",
