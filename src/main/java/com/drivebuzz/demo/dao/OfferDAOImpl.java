@@ -27,8 +27,7 @@ public class OfferDAOImpl implements OfferDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Query<Offer> theQuery =
-				currentSession.createQuery("from Offer order by dateCreated desc, timeCreated desc,"
-										+ "departureDate desc, departureTime desc", Offer.class);
+				currentSession.createQuery("from Offer", Offer.class);
 		
 		List<Offer> offers = theQuery.getResultList();
 		
@@ -89,6 +88,23 @@ public class OfferDAOImpl implements OfferDAO {
 		theQuery.setParameter("offerId", theId);
 		
 		theQuery.executeUpdate();
+	}
+
+	@Override
+	public List<Offer> findLatestOffersByPage(int pageNumber) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		
+		Query<Offer> theQuery =
+				currentSession.createQuery("from Offer order by dateCreated desc, timeCreated desc,"
+										+ "departureDate desc, departureTime desc", Offer.class);
+		theQuery.setFirstResult(10 * (pageNumber - 1));  
+		theQuery.setMaxResults(10);
+		
+		List<Offer> offers = theQuery.getResultList();
+		
+		return offers;
 	}
 
 }

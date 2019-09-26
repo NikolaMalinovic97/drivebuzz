@@ -53,4 +53,9 @@ public class OfferServiceImpl implements OfferService {
 		offerDAO.deleteById(theId);
 	}
 
+	@Override
+	public List<Offer> findLatestOffersByPage(int pageNumber) {
+		return offerDAO.findLatestOffersByPage(pageNumber);
+	}
+
 }

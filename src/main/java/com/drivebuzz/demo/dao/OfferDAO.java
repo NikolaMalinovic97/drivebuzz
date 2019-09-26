@@ -17,4 +17,6 @@ public interface OfferDAO {
 	public void save(Offer theOffer);
 	
 	public void deleteById(int theId);
+
+	public List<Offer> findLatestOffersByPage(int pageNumber);
 }

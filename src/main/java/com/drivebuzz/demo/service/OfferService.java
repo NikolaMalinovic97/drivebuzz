@@ -17,4 +17,6 @@ public interface OfferService {
 	public void save(Offer theOffer);
 	
 	public void deleteById(int theId);
+
+	public List<Offer> findLatestOffersByPage(int pageNumber);
 }

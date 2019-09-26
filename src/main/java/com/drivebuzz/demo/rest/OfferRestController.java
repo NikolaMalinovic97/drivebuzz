@@ -48,6 +48,12 @@ public class OfferRestController {
 		
 		return offerService.findAllInactive();
 	}
+	
+	@GetMapping("/offers/latest/{pageNumber}")
+	public List<Offer> findLatestOffersByPage(@PathVariable int pageNumber) {
+		
+		return offerService.findLatestOffersByPage(pageNumber);
+	}
 
 	@GetMapping("/offers/{offerId}")
 	public Offer getOffer(@PathVariable int offerId) {
