@@ -27,7 +27,8 @@ public class OfferDAOImpl implements OfferDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Query<Offer> theQuery =
-				currentSession.createQuery("from Offer", Offer.class);
+				currentSession.createQuery("from Offer order by dateCreated desc, timeCreated desc,"
+										+ "departureDate desc, departureTime desc", Offer.class);
 		
 		List<Offer> offers = theQuery.getResultList();
 		
