@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="offer")
@@ -48,7 +49,7 @@ public class Offer {
 	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 						 CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name="user_id")
-	@JsonBackReference
+	@JsonBackReference("offer-user")
 	private User user;
 	
 	public Offer() {

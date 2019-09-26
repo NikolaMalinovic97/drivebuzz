@@ -41,14 +41,13 @@ public class Conversation {
 			joinColumns=@JoinColumn(name="conversation_id"),
 			inverseJoinColumns=@JoinColumn(name="user_id")
 			)
-	@JsonManagedReference
 	private List<User> users;
 	
-	@OneToMany(mappedBy="conversation",
+	/*@OneToMany(mappedBy="conversation",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					     CascadeType.DETACH, CascadeType.REFRESH})
 	@JsonManagedReference
-	private List<Message> messages;
+	private List<Message> messages;*/
 	
 	public Conversation() {
 		
@@ -91,13 +90,13 @@ public class Conversation {
 		this.users = users;
 	}
 
-	public List<Message> getMessages() {
+	/*public List<Message> getMessages() {
 		return messages;
 	}
 
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
-	}
+	}*/
 
 	public void addUser(User theUser) {
 		
@@ -108,14 +107,14 @@ public class Conversation {
 		users.add(theUser);
 	}
 	
-	public void addMessage(Message theMessage) {
+	/*public void addMessage(Message theMessage) {
 		
 		if (messages == null) {
 			messages = new ArrayList<>();
 		}
 		
 		messages.add(theMessage);
-	}
+	}*/
 	
 	@Override
 	public String toString() {

@@ -60,7 +60,7 @@ public class ConversationRestController {
 		User userOne = userService.findById(userOneId);
 		User userTwo = userService.findById(userTwoId);
 		
-		Conversation theConversation = new Conversation("2019-08-12", "13:12:00");
+		Conversation theConversation = new Conversation("2019-08-12", "13:12:00"); // TO-DO: add real date and time
 		
 		theConversation.addUser(userOne);
 		theConversation.addUser(userTwo);

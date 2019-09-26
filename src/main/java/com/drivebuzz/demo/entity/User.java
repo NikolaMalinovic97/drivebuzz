@@ -18,7 +18,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="user")
@@ -44,8 +46,8 @@ public class User {
 	
 	@OneToMany(mappedBy="user",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					     /*CascadeType.DETACH,*/ CascadeType.REFRESH})
-	@JsonManagedReference
+					     CascadeType.DETACH, CascadeType.REFRESH})
+	@JsonManagedReference("offer-user")
 	private List<Offer> offers;
 	
 	@OneToMany(mappedBy="user",
@@ -68,14 +70,13 @@ public class User {
 			joinColumns=@JoinColumn(name="user_id"),
 			inverseJoinColumns=@JoinColumn(name="conversation_id")
 			)
-	@JsonBackReference
 	private List<Conversation> conversations;
 	
-	@OneToMany(mappedBy="user",
+	/*@OneToMany(mappedBy="user",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					     CascadeType.DETACH, CascadeType.REFRESH})
 	@JsonManagedReference
-	private List<Message> messages;
+	private List<Message> messages;*/
 		
 	public User() {
 		
@@ -159,13 +160,13 @@ public class User {
 		this.conversations = conversations;
 	}
 	
-	public List<Message> getMessages() {
+	/*public List<Message> getMessages() {
 		return messages;
 	}
 
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
-	}
+	}*/
 
 	public void addOffer(Offer tempOffer) {
 		
@@ -200,14 +201,14 @@ public class User {
 		tempNotification.setUser(this);
 	}
 	
-	public void addMessage(Message theMessage) {
+	/*public void addMessage(Message theMessage) {
 		
 		if (messages == null) {
 			messages = new ArrayList<>();
 		}
 		
 		messages.add(theMessage);
-	}
+	}*/
 
 	@Override
 	public String toString() {
