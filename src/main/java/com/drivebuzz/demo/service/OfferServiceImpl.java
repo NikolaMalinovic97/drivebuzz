@@ -64,4 +64,16 @@ public class OfferServiceImpl implements OfferService {
 		return offerDAO.findTodayOffersByPage(pageNumber);
 	}
 
+	@Override
+	public List<Offer> findNextSevenDaysOffersByPage(int pageNumber) {
+		
+		return offerDAO.findNextSevenDaysOffersByPage(pageNumber);
+	}
+
+	@Override
+	public List<Offer> findNextMonthOffersByPage(int pageNumber) {
+		
+		return offerDAO.findNextMonthOffersByPage(pageNumber);
+	}
+
 }

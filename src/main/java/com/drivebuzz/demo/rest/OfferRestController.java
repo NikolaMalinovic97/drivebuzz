@@ -52,16 +52,50 @@ public class OfferRestController {
 	@GetMapping("/offers/latest/{pageNumber}")
 	public List<Offer> findLatestOffersByPage(@PathVariable int pageNumber) {
 		
-		return offerService.findLatestOffersByPage(pageNumber);
+		List<Offer> offers = offerService.findLatestOffersByPage(pageNumber);
+		
+		if (offers.isEmpty()) {
+			throw new RuntimeException("There are no offers for page: " + pageNumber);
+		}
+		
+		return offers;
 	}
 	
 	@GetMapping("/offers/today/{pageNumber}")
 	public List<Offer> findTodayOffersByPage(@PathVariable int pageNumber) {
 		
-		return offerService.findTodayOffersByPage(pageNumber);
+		List<Offer> offers = offerService.findTodayOffersByPage(pageNumber);
+		
+		if (offers.isEmpty()) {
+			throw new RuntimeException("There are no offers for page: " + pageNumber);
+		}
+		
+		return offers;
 	}
 	
-	// add pagination APIs
+	@GetMapping("/offers/next-7-days/{pageNumber}")
+	public List<Offer> findNextSevenDaysOffersByPage(@PathVariable int pageNumber) {
+		
+		List<Offer> offers = offerService.findNextSevenDaysOffersByPage(pageNumber);
+		
+		if (offers.isEmpty()) {
+			throw new RuntimeException("There are no offers for page: " + pageNumber);
+		}
+		
+		return offers;
+	}
+	
+	@GetMapping("/offers/next-month/{pageNumber}")
+	public List<Offer> findNextMonthOffersByPage(@PathVariable int pageNumber) {
+		
+		List<Offer> offers = offerService.findNextMonthOffersByPage(pageNumber);
+		
+		if (offers.isEmpty()) {
+			throw new RuntimeException("There are no offers for page: " + pageNumber);
+		}
+		
+		return offers;
+	}
 
 	@GetMapping("/offers/{offerId}")
 	public Offer getOffer(@PathVariable int offerId) {

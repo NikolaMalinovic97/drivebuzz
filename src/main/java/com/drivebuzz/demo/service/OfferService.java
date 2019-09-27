@@ -21,4 +21,8 @@ public interface OfferService {
 	public List<Offer> findLatestOffersByPage(int pageNumber);
 
 	public List<Offer> findTodayOffersByPage(int pageNumber);
+
+	public List<Offer> findNextSevenDaysOffersByPage(int pageNumber);
+
+	public List<Offer> findNextMonthOffersByPage(int pageNumber);
 }

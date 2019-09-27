@@ -1,6 +1,8 @@
 package com.drivebuzz.demo.dao;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -120,6 +122,66 @@ public class OfferDAOImpl implements OfferDAO {
 		Query<Offer> theQuery =
 				currentSession.createQuery("from Offer where departureDate = :today", Offer.class);
 		theQuery.setParameter("today", todaysDate);
+		theQuery.setFirstResult(10 * (pageNumber - 1));  
+		theQuery.setMaxResults(10);
+		
+		List<Offer> offers = theQuery.getResultList();
+		
+		return offers;
+	}
+
+	@Override
+	public List<Offer> findNextSevenDaysOffersByPage(int pageNumber) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Calendar calendar = Calendar.getInstance();
+		
+		calendar.add(Calendar.DAY_OF_MONTH, 6);
+		
+		long millis = System.currentTimeMillis();
+		Date sqlTodaysDate = new Date(millis);
+		
+		String todaysDate = sqlTodaysDate.toString();
+		String seventhDayDate = sdf.format(calendar.getTime());
+		
+		Query<Offer> theQuery =
+				currentSession.createQuery("from Offer where departureDate between :today and :seventhDay "
+										+ "order by departureDate, departureTime ", Offer.class);
+		theQuery.setParameter("today", todaysDate);
+		theQuery.setParameter("seventhDay", seventhDayDate);
+		theQuery.setFirstResult(10 * (pageNumber - 1));  
+		theQuery.setMaxResults(10);
+		
+		List<Offer> offers = theQuery.getResultList();
+		
+		return offers;
+	}
+
+	@Override
+	public List<Offer> findNextMonthOffersByPage(int pageNumber) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Calendar calendar = Calendar.getInstance();
+		
+		calendar.add(Calendar.MONTH, 1);
+		
+		long millis = System.currentTimeMillis();
+		Date sqlTodaysDate = new Date(millis);
+		
+		String todaysDate = sqlTodaysDate.toString();
+		String lastDayDate = sdf.format(calendar.getTime());
+		
+		Query<Offer> theQuery =
+				currentSession.createQuery("from Offer where departureDate between :today and :lastDay "
+										+ "order by departureDate, departureTime ", Offer.class);
+		theQuery.setParameter("today", todaysDate);
+		theQuery.setParameter("lastDay", lastDayDate);
 		theQuery.setFirstResult(10 * (pageNumber - 1));  
 		theQuery.setMaxResults(10);
 		
