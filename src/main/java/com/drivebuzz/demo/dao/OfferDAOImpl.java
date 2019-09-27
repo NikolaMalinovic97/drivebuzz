@@ -1,5 +1,6 @@
 package com.drivebuzz.demo.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -95,10 +96,30 @@ public class OfferDAOImpl implements OfferDAO {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		
 		Query<Offer> theQuery =
 				currentSession.createQuery("from Offer order by dateCreated desc, timeCreated desc,"
 										+ "departureDate desc, departureTime desc", Offer.class);
+		theQuery.setFirstResult(10 * (pageNumber - 1));  
+		theQuery.setMaxResults(10);
+		
+		List<Offer> offers = theQuery.getResultList();
+		
+		return offers;
+	}
+
+	@Override
+	public List<Offer> findTodayOffersByPage(int pageNumber) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		long millis = System.currentTimeMillis();
+		Date sqlTodaysDate = new Date(millis);
+		
+		String todaysDate = sqlTodaysDate.toString();
+		
+		Query<Offer> theQuery =
+				currentSession.createQuery("from Offer where departureDate = :today", Offer.class);
+		theQuery.setParameter("today", todaysDate);
 		theQuery.setFirstResult(10 * (pageNumber - 1));  
 		theQuery.setMaxResults(10);
 		

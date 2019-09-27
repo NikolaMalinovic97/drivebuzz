@@ -58,4 +58,10 @@ public class OfferServiceImpl implements OfferService {
 		return offerDAO.findLatestOffersByPage(pageNumber);
 	}
 
+	@Override
+	public List<Offer> findTodayOffersByPage(int pageNumber) {
+		
+		return offerDAO.findTodayOffersByPage(pageNumber);
+	}
+
 }

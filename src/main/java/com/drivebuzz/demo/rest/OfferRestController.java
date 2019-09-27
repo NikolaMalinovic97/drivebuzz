@@ -54,6 +54,14 @@ public class OfferRestController {
 		
 		return offerService.findLatestOffersByPage(pageNumber);
 	}
+	
+	@GetMapping("/offers/today/{pageNumber}")
+	public List<Offer> findTodayOffersByPage(@PathVariable int pageNumber) {
+		
+		return offerService.findTodayOffersByPage(pageNumber);
+	}
+	
+	// add pagination APIs
 
 	@GetMapping("/offers/{offerId}")
 	public Offer getOffer(@PathVariable int offerId) {
