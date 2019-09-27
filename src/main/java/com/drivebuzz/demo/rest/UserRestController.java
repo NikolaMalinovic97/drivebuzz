@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.drivebuzz.demo.entity.User;
-import com.drivebuzz.demo.extractor.FieldExtractor;
+import com.drivebuzz.demo.miscellaneous.FieldExtractor;
 import com.drivebuzz.demo.service.UserService;
 
 @RestController

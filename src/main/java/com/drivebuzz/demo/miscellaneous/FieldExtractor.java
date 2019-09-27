@@ -1,4 +1,4 @@
-package com.drivebuzz.demo.extractor;
+package com.drivebuzz.demo.miscellaneous;
 
 import java.lang.reflect.Field;
 

@@ -1,8 +1,5 @@
 package com.drivebuzz.demo.dao;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.drivebuzz.demo.entity.Offer;
+import com.drivebuzz.demo.miscellaneous.DateGetter;
 
 @Repository
 public class OfferDAOImpl implements OfferDAO {
@@ -114,10 +112,8 @@ public class OfferDAOImpl implements OfferDAO {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		long millis = System.currentTimeMillis();
-		Date sqlTodaysDate = new Date(millis);
-		
-		String todaysDate = sqlTodaysDate.toString();
+		DateGetter dateGetter = new DateGetter();
+		String todaysDate = dateGetter.getTodaysDate();
 		
 		Query<Offer> theQuery =
 				currentSession.createQuery("from Offer where departureDate = :today", Offer.class);
@@ -135,17 +131,9 @@ public class OfferDAOImpl implements OfferDAO {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Calendar calendar = Calendar.getInstance();
-		
-		calendar.add(Calendar.DAY_OF_MONTH, 6);
-		
-		long millis = System.currentTimeMillis();
-		Date sqlTodaysDate = new Date(millis);
-		
-		String todaysDate = sqlTodaysDate.toString();
-		String seventhDayDate = sdf.format(calendar.getTime());
+		DateGetter dateGetter = new DateGetter();
+		String todaysDate = dateGetter.getTodaysDate();
+		String seventhDayDate = dateGetter.getSevenDaysFromNowDate();
 		
 		Query<Offer> theQuery =
 				currentSession.createQuery("from Offer where departureDate between :today and :seventhDay "
@@ -165,17 +153,9 @@ public class OfferDAOImpl implements OfferDAO {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Calendar calendar = Calendar.getInstance();
-		
-		calendar.add(Calendar.MONTH, 1);
-		
-		long millis = System.currentTimeMillis();
-		Date sqlTodaysDate = new Date(millis);
-		
-		String todaysDate = sqlTodaysDate.toString();
-		String lastDayDate = sdf.format(calendar.getTime());
+		DateGetter dateGetter = new DateGetter();
+		String todaysDate = dateGetter.getTodaysDate();
+		String lastDayDate = dateGetter.getMonthFromNowDate();
 		
 		Query<Offer> theQuery =
 				currentSession.createQuery("from Offer where departureDate between :today and :lastDay "
